@@ -1,82 +1,55 @@
-# SBB Delay Analysis with Dask
+# Projekt: Analyse von SBB-Verspätungen mit Dask (Mai 2025)
 
-## 📄 Project Overview
+## Projektübersicht
 
-This project analyzes the SBB (Swiss Federal Railways) real-time delay data using **Dask**, a parallel computing library that scales efficiently with large datasets. The objective is to evaluate long-distance train punctuality and identify trends in train delays.
+In diesem Projekt analysieren wir die effektiven Verspätungsdaten der SBB-Fernverkehrszüge im Monat **Mai 2025**. Ziel ist es, Muster zu erkennen: 
+- Welche Linien sind besonders oft verspätet?
+- An welchen Wochentagen oder zu welchen Uhrzeiten treten Verspätungen vermehrt auf?
+- Welche Bahnhöfe sind am häufigsten von verspäteten Fahrten betroffen?
 
----
-
-## 🗂 Dataset
-
-- **Source**: [Open Transport Data](https://opentransportdata.swiss/de/dataset/ist-daten-sbb)
-- **Files Used**: `ist-daten-2025-01.zip` through `ist-daten-2025-05.zip`
-- **Volume**: Hundreds of millions of rows in total across the 5 months.
+Für die Datenverarbeitung wurde **Dask** verwendet – ein verteiltes Python-Framework für die Analyse großer Datenmengen.
 
 ---
 
-## ⚙️ Setup Instructions
+## Technische Umsetzung
 
-### 1. Environment Setup
-
-```bash
-pip install -r requirements.txt
-```
-
-Make sure `dask`, `pandas`, `matplotlib`, `seaborn`, `requests`, and `pyarrow` are included.
-
-### 2. Dask Client
-
-Start with:
-
-```python
-from dask.distributed import Client, LocalCluster
-cluster = LocalCluster()
-client = Client(cluster)
-```
-
-Optional for autoscaling:
-```python
-client.cluster.adapt(minimum=2, maximum=8)
-```
+- **Datenquelle:** Open Transport Data Schweiz  
+  `https://archive.opentransportdata.swiss/istdaten/2025/ist-daten-2025-05.zip`
+- **Dateiformat:** CSV-Dateien (gezippt)
+- **Größe nach Entpacken:** ~2 GB (über 70 Millionen Zeilen)
+- **Verarbeitungsschritte:**
+  - Laden und Parsen der CSV-Dateien mit Dask
+  - Konvertieren von Datumsfeldern
+  - Filtern auf SBB und Fernverkehr (`IC`, `IR`, `ICE`, `EC`)
+  - Berechnung von Verspätungen in Minuten
+  - Erkennen von „verspätet“ ab >6 Minuten
+  - Gruppierungen und Visualisierungen
 
 ---
 
-## 🧠 Analysis Steps
+## 🔧 Voraussetzungen
 
-1. **Download & Extract** monthly ZIP archives (Jan–May 2025).
-2. **Load into Dask DataFrame** with correct datetime conversions and type handling.
-3. **Filter** only SBB-operated long-distance trains (IR, IC, ICE, EC).
-4. **Compute Delays** by subtracting scheduled vs. real times.
-5. **Categorize Delays**: Trains with >6 min delays marked as delayed.
-6. **Visualizations**: Hourly trends, weekdays, most delayed lines/stations.
-7. **Exported Parquet Files** (optional, for reuse).
+- Python ≥ 3.10
+- Installation der benötigten Pakete:
+  ```bash
+  pip install -r requirements.txt
+  ```
 
 ---
 
-## 📊 Key Findings
+## 🚀 Ausführung
 
-- **ICE trains** showed the highest average delays among long-distance lines.
-- Delay peaks occur in the **evening hours** and vary slightly by **weekday**.
-- Certain **stations** consistently rank among the most delayed.
+1. Starte Jupyter:
+   ```bash
+   jupyter notebook
+   ```
 
----
+2. Öffne das Notebook `SBB_Delays_dask.ipynb`
 
-## 🧪 Performance Notes
-
-- Dask significantly improves performance over Pandas for >70M rows.
-- Partitioning strategies and memory persistence are critical.
-- Pre-filtering and `.persist()` helped optimize workflows.
-
----
-
-## 🧾 Author Notes
-
-This notebook was submitted as part of a non-Spark project assignment. For reproduction:
-- Ensure you're connected to the internet (for downloading ZIPs).
-- Use the Dask Dashboard (`client`) for performance monitoring.
-
-If questions arise, feel free to reach out.
+3. Folge den Ausführungszellen:
+   - Herunterladen & Entpacken des Mai-Archivs
+   - Laden ins Dask DataFrame
+   - Datenbereinigung & Analyse
+   - Visualisierung der Ergebnisse
 
 ---
-
-(c) 2025 – Team DaskTrain
