@@ -1,0 +1,6 @@
+dask[complete]
+pandas
+matplotlib
+seaborn
+notebook
+requests
