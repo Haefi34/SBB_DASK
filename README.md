@@ -29,11 +29,28 @@ Für die Datenverarbeitung wurde **Dask** verwendet – ein verteiltes Python-Fr
 
 ## Voraussetzungen
 
-- Python ≥ 3.10
-- Installation der benötigten Pakete:
-  ```bash
-  pip install -r requirements.txt
-  ```
+
+Folge diesen Schritten, um das Projekt zum Laufen zu bringen:
+
+## 1. Repository klonen
+
+```bash
+git clone https://github.com/Haefi34/SBB_DASK.git
+cd SBB_DASK
+```
+
+## 2. (Optional) Virtuelle Umgebung erstellen und aktivieren
+
+```bash
+python -m venv venv
+source venv/bin/activate  # Unter Windows: venv\Scripts\activate
+```
+
+## 3. Python-Abhängigkeiten installieren
+
+```bash
+pip install -r requirements.txt
+```
 
 ---
 
