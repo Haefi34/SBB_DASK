@@ -27,7 +27,7 @@ Für die Datenverarbeitung wurde **Dask** verwendet – ein verteiltes Python-Fr
 
 ---
 
-## 🔧 Voraussetzungen
+## Voraussetzungen
 
 - Python ≥ 3.10
 - Installation der benötigten Pakete:
@@ -37,7 +37,7 @@ Für die Datenverarbeitung wurde **Dask** verwendet – ein verteiltes Python-Fr
 
 ---
 
-## 🚀 Ausführung
+## Ausführung
 
 1. Starte Jupyter:
    ```bash
